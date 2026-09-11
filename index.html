@@ -1,455 +1,670 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tariq Hussain Almalki — Computer Engineering &amp; Networks</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tariq Almalki — Computer Engineering &amp; Networks</title>
+<meta name="description" content="Tariq Almalki — Computer Engineering and Networks student, security tooling, AI-assisted development." />
+<script src="https://unpkg.com/@fiddle-digital/string-tune@1.2.1/dist/index.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0C0C0F;
-    --surface:#141417;
-    --line: rgba(242,241,236,0.09);
-    --line-strong: rgba(242,241,236,0.16);
-    --text:#F2F1EC;
-    --text-dim:#9C978D;
-    --accent:#C9A24B;
-    --max: 720px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:
-      radial-gradient(ellipse at top, rgba(201,162,75,0.05), transparent 55%),
-      var(--bg);
-    color:var(--text);
-    font-family:'Inter', sans-serif;
-    font-size:16px;
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:var(--text); text-decoration-color: var(--accent); text-underline-offset:3px;}
-  a:hover{ color:var(--accent); }
-  .wrap{max-width:var(--max); margin:0 auto; padding: 0 24px 90px;}
 
-  header.hero{
-    max-width:var(--max);
-    margin: 90px auto 0;
-    padding: 0 24px;
-  }
-  .kicker{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    letter-spacing:0.08em;
-    color:var(--accent);
-    margin:0 0 18px;
-  }
-  h1{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size: clamp(36px, 8vw, 54px);
-    line-height:1.08;
-    letter-spacing:-0.01em;
-    margin:0 0 16px;
-    color:var(--text);
-  }
-  .role{
-    font-size:17.5px;
-    color:var(--text-dim);
-    margin:0 0 26px;
-    max-width:50ch;
-  }
-  .accent-rule{
-    height:1px;
-    width:0;
-    background: var(--accent);
-    animation: draw 1.2s cubic-bezier(.2,.7,.2,1) 0.15s forwards;
-  }
-  @keyframes draw{ to{ width:64px; } }
-  @media (prefers-reduced-motion: reduce){
-    .accent-rule{ animation:none; width:64px; }
-  }
-  .meta-line{
-    margin-top:22px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px 10px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:12.5px;
-    color:var(--text-dim);
-  }
-  .meta-line span.dot{ color:var(--line-strong); }
+@property --progress {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
 
-  section{ margin-top:72px; }
-  .sec-head{
-    margin-bottom:22px;
-  }
-  h2{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:24px;
-    margin:0 0 10px;
-    color:var(--text);
-  }
-  .sec-line{
-    height:1px;
-    width:100%;
-    background:var(--line);
-  }
-  p.lead{
-    color:var(--text-dim);
-    max-width:60ch;
-    font-size:16px;
-  }
+:root{
+  --vh: 1vh;
+  --bg: #0A0E14;
+  --bg-panel: #10151D;
+  --bg-panel-2: #131A24;
+  --line: #212B38;
+  --ink: #E8ECF1;
+  --muted: #8D99A8;
+  --accent: #FFB454;
+  --accent-ink: #241705;
+  --accent-2: #5AC8FA;
 
-  .legend{ border-top:1px solid var(--line); }
-  .legend-row{
-    display:grid;
-    grid-template-columns: 180px 1fr;
-    border-bottom:1px solid var(--line);
-    padding:16px 0;
-  }
-  .legend-key{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12.5px;
-    color:var(--accent);
-  }
-  .legend-val{
-    color:var(--text-dim);
-    font-size:14.5px;
-  }
-  @media(max-width:560px){
-    .legend-row{grid-template-columns:1fr; gap:6px;}
-  }
+  --sans: 'IBM Plex Sans', Arial, sans-serif;
+  --display: 'Space Grotesk', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
 
-  .project{
-    border-bottom:1px solid var(--line);
-    padding:22px 0;
-  }
-  .project:first-child{ padding-top:0; }
-  .project-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:12px;
-    margin-bottom:8px;
-  }
-  .project-title{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:18.5px;
-    color:var(--text);
-  }
-  .project-tag{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    color:var(--text-dim);
-    white-space:nowrap;
-    padding-top:5px;
-    letter-spacing:0.04em;
-  }
-  .project-desc{
-    color:var(--text-dim);
-    font-size:14.5px;
-    margin:0 0 10px;
-    max-width:58ch;
-  }
-  .project-link{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12.5px;
-    color:var(--accent);
-  }
+  --fs-hero: clamp(1.9rem, 1.1rem + 3.4vw, 3.8rem);
+  --fs-h2: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+  --fs-h3: 1.25rem;
+  --fs-body: 1.05rem;
+  --fs-small: 0.875rem;
+  --fs-stat: clamp(2.2rem, 1.6rem + 2.4vw, 3.4rem);
 
-  .timeline{ position:relative; padding-left:26px; }
-  .timeline::before{
-    content:"";
-    position:absolute;
-    left:6px; top:6px; bottom:6px;
-    width:1px;
-    background:var(--line-strong);
-  }
-  .tl-item{ position:relative; margin-bottom:28px; }
-  .tl-item:last-child{ margin-bottom:0; }
-  .tl-item::before{
-    content:"";
-    position:absolute;
-    left:-26px; top:5px;
-    width:9px; height:9px;
-    border-radius:50%;
-    background:var(--bg);
-    border:1.5px solid var(--accent);
-  }
-  .tl-role{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:17px;
-    color:var(--text);
-    margin:0 0 2px;
-  }
-  .tl-org{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    color:var(--text-dim);
-    margin:0 0 8px;
-  }
-  .tl-desc{
-    color:var(--text-dim);
-    font-size:14.5px;
-    margin:0;
-    max-width:58ch;
-  }
+  --gap: 1.25rem;
+  --edge: 1.5rem;
+  --maxw: 1160px;
+}
+@media (min-width: 900px){
+  :root{ --edge: 3rem; }
+}
 
-  ul.plain{ list-style:none; padding:0; margin:0; }
-  ul.plain li{
-    padding:14px 0;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-    font-size:14.5px;
-    color:var(--text-dim);
-  }
-  ul.plain li:last-child{ border-bottom:none; }
-  ul.plain li span.item-name{ color:var(--text); }
-  ul.plain li span.item-meta{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    color:var(--text-dim);
-    text-align:right;
-    white-space:nowrap;
-  }
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ background: var(--bg); }
+body{
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3{
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+a{ color: inherit; text-decoration: none; }
+img{ display:block; max-width:100%; }
 
-  footer{
-    margin-top:80px;
-    padding-top:32px;
-    border-top:1px solid var(--line-strong);
-  }
-  .footer-name{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:19px;
-    margin:0 0 4px;
-  }
-  .footer-role{
-    color:var(--text-dim);
-    font-size:13.5px;
-    margin:0 0 22px;
-  }
-  .contact-grid{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:14px 20px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-  }
-  .contact-grid .label{
-    color:var(--text-dim);
-    display:block;
-    font-size:10.5px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    margin-bottom:3px;
-  }
-  @media(max-width:480px){
-    .contact-grid{grid-template-columns:1fr;}
-  }
+a:focus-visible, button:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; animation:none !important; }
+}
+
+.wrap{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--edge);
+}
+
+.mono{ font-family: var(--mono); }
+
+/* ---------- top bar ---------- */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(10,14,20,0.86);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+.topbar .name{
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.topbar nav{
+  display:flex;
+  gap: 1.25rem;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.topbar nav a{ border-bottom: 1px solid transparent; }
+.topbar nav a:hover{ color: var(--ink); border-bottom-color: var(--accent); }
+.topbar nav .cv{
+  color: var(--bg);
+  background: var(--accent);
+  padding: 0.4rem 0.85rem;
+  border-radius: 2px;
+}
+.topbar nav .cv:hover{ opacity: 0.88; }
+
+/* ---------- hero (scroll word-reveal) ---------- */
+.hero{
+  position: relative;
+  min-height: calc(var(--vh,1vh) * 280);
+}
+.hero-inner{
+  position: sticky;
+  top: 0;
+  min-height: calc(var(--vh,1vh) * 100);
+  display: flex;
+  align-items: center;
+  padding: 8vh 0;
+}
+.hero-text{
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--display);
+  font-size: var(--fs-hero);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.hero-text .indent{
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.6em;
+}
+.hero-text .indent::before{
+  content: 'scroll ' attr(data-val-pct) '%';
+  font-family: var(--mono);
+  font-size: var(--fs-small);
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.6rem;
+}
+.-s-word{
+  --word-turn: calc( (var(--word-index) - 2) / var(--word-global-total) );
+  --word-step: calc( 1 / var(--word-global-total) );
+  --word-progress: clamp( 0, calc( (var(--progress) - var(--word-turn)) / var(--word-step) ), 1 );
+
+  display: inline-flex;
+  transform: translate3d(0, calc(100% - var(--word-progress) * 100%), 0);
+  clip-path: inset(-15% 0 calc(115% - var(--word-progress) * 130%) 0);
+  color: var(--muted);
+}
+.-s-word[style*="--word-progress: 1"]{ color: var(--ink); }
+
+/* ---------- info strip ---------- */
+.strip{
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.strip .wrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+.strip .cell{
+  flex: 1 1 auto;
+  padding: 0.9rem 1.25rem;
+  border-left: 1px solid var(--line);
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.strip .cell:first-child{ border-left: none; padding-left: 0; }
+.strip .cell b{ color: var(--ink); font-weight: 500; }
+
+/* ---------- sections ---------- */
+section{ padding: 5.5rem 0; }
+section + section{ border-top: 1px solid var(--line); }
+h2{ font-size: var(--fs-h2); margin-bottom: 2.25rem; max-width: 20ch; }
+.lede{ color: var(--muted); max-width: 62ch; margin-bottom: 2.25rem; }
+
+/* about */
+.about-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+@media (min-width: 900px){
+  .about-grid{ grid-template-columns: 1.1fr 0.9fr; gap: 3.5rem; }
+}
+.about-grid p{ max-width: 56ch; }
+.about-grid p + p{ margin-top: 1rem; }
+.facts{ border: 1px solid var(--line); }
+.facts .row{
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+}
+.facts .row + .row{ border-top: 1px solid var(--line); }
+.facts .row span:first-child{ color: var(--muted); font-size: var(--fs-small); }
+.facts .row span:last-child{ text-align: right; font-size: var(--fs-small); }
+
+/* AI panel */
+.ai-panel{
+  border: 1px solid var(--line);
+  background: var(--bg-panel);
+  padding: 1.75rem;
+  display: grid;
+  gap: 1.1rem;
+}
+@media (min-width: 700px){
+  .ai-panel{ grid-template-columns: repeat(2, 1fr); }
+}
+.ai-panel .item{ border-left: 2px solid var(--accent); padding-left: 1rem; }
+.ai-panel .item p{ color: var(--muted); font-size: var(--fs-small); margin-top: 0.35rem; }
+
+/* skills */
+.skills-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+@media (min-width: 700px){
+  .skills-grid{ grid-template-columns: 1.3fr 1fr; }
+}
+.skill-panel{ background: var(--bg-panel); padding: 1.5rem 1.6rem; }
+.skill-panel h3{ font-size: var(--fs-h3); margin-bottom: 0.85rem; }
+.skill-panel ul{ list-style:none; display:flex; flex-wrap:wrap; gap: 0.5rem; }
+.skill-panel li{
+  font-size: var(--fs-small);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.65rem;
+}
+
+/* featured project */
+.feature{
+  border: 1px solid var(--line);
+  background: var(--bg-panel);
+}
+.feature-top{ padding: 2rem 2rem 0 2rem; }
+@media (min-width: 700px){ .feature-top{ padding: 2.75rem 2.75rem 0 2.75rem; } }
+.feature-top .kicker{ color: var(--accent); font-family: var(--mono); font-size: var(--fs-small); }
+.feature-top h3{ font-family: var(--display); font-size: var(--fs-h2); margin: 0.6rem 0 1rem; max-width: 22ch; }
+.feature-top p{ color: var(--muted); max-width: 62ch; }
+.feature-stats{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  margin-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 700px){ .feature-stats{ grid-template-columns: repeat(3, 1fr); } }
+.feature-stats .stat{
+  padding: 1.6rem 2rem;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 700px){
+  .feature-stats .stat{ border-top: none; border-left: 1px solid var(--line); }
+  .feature-stats .stat:first-child{ border-left: none; }
+}
+.feature-stats .num{ font-family: var(--mono); font-size: var(--fs-stat); color: var(--accent); line-height: 1; }
+.feature-stats .label{ color: var(--muted); font-size: var(--fs-small); margin-top: 0.5rem; }
+.feature-link{
+  display: inline-block;
+  margin: 1.75rem 2rem 2rem;
+  font-size: var(--fs-small);
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+}
+@media (min-width: 700px){ .feature-link{ margin: 1.75rem 2.75rem 2.75rem; } }
+.feature-link:hover{ opacity: 0.8; }
+
+/* project list */
+.plist{ border-top: 1px solid var(--line); }
+.prow{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 800px){
+  .prow{ grid-template-columns: 1fr 2fr auto; align-items: center; gap: 1.5rem; }
+}
+.prow h4{ font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
+.prow p{ color: var(--muted); font-size: var(--fs-small); }
+.prow a{
+  font-size: var(--fs-small);
+  color: var(--accent-2);
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+}
+.prow a:hover{ border-bottom-color: var(--accent-2); }
+
+/* two column: leadership + certs */
+.two-col{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+@media (min-width: 900px){
+  .two-col{ grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+}
+.role{ margin-bottom: 0.5rem; }
+.role .org{ color: var(--muted); font-size: var(--fs-small); margin-top: 0.2rem; }
+.role ul{ margin-top: 1rem; padding-left: 1.1rem; color: var(--muted); font-size: var(--fs-small); }
+.role li + li{ margin-top: 0.4rem; }
+
+.cert-list{ list-style:none; }
+.cert-row{
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-small);
+}
+.cert-row:first-child{ padding-top: 0; }
+.cert-row .org{ color: var(--muted); }
+.cert-row .yr{ font-family: var(--mono); color: var(--accent-2); white-space: nowrap; }
+
+/* volunteer strip */
+.vol{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 800px){
+  .vol{ grid-template-columns: auto 1fr; gap: 3rem; }
+}
+.vol .num{ font-family: var(--mono); font-size: var(--fs-stat); color: var(--accent); line-height: 1; }
+.vol p{ color: var(--muted); max-width: 46ch; }
+.vol p b{ color: var(--ink); font-weight: 500; }
+
+/* ---------- footer (parallax reveal) ---------- */
+.footer{
+  position: relative;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.footer::after{
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg);
+  opacity: calc(1 - var(--progress));
+  pointer-events: none;
+}
+.footer-inner{
+  position: relative;
+  min-height: calc(var(--vh,1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4rem 0;
+  transform: translate3d(0, calc(-25% + 25% * var(--progress)), 0);
+}
+@media (prefers-reduced-motion: reduce){
+  .footer-inner{ transform: none; }
+}
+.footer-top h2{
+  font-size: clamp(2rem, 1.3rem + 3.5vw, 4rem);
+  max-width: 14ch;
+  color: var(--accent-ink);
+  margin-bottom: 1.25rem;
+}
+.footer-top p{ max-width: 42ch; font-size: 1.05rem; opacity: 0.82; }
+.footer-links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-top: 2.5rem;
+}
+.footer-links a{
+  font-size: var(--fs-small);
+  border-bottom: 1px solid rgba(36,23,5,0.4);
+  padding-bottom: 0.15rem;
+}
+.footer-links a:hover{ border-bottom-color: var(--accent-ink); }
+.footer-bottom{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(36,23,5,0.25);
+  font-size: var(--fs-small);
+  opacity: 0.75;
+}
+
 </style>
 </head>
 <body>
 
-  <header class="hero">
-    <p class="kicker">PERSONAL PROFILE</p>
-    <h1>Tariq Hussain Almalki</h1>
-    <p class="role">Computer Engineering &amp; Networks student at Umm Al-Qura University. I build security tools and teach networking fundamentals to fellow students.</p>
-    <div class="accent-rule"></div>
-    <div class="meta-line">
-      <span>Makkah, Saudi Arabia</span>
-      <span class="dot">·</span>
-      <span>Umm Al-Qura University</span>
-      <span class="dot">·</span>
-      <span>Class of 2031</span>
-    </div>
-  </header>
-
+<header class="topbar">
   <div class="wrap">
-
-    <section id="about">
-      <div class="sec-head">
-        <h2>About</h2>
-        <div class="sec-line"></div>
-      </div>
-      <p class="lead">I care about the gap between knowing a concept and being able to use it under pressure — whether that's a subnetting problem or a vulnerability that only shows up at runtime. Most of what's below started as something I built to answer my own question, then turned into something other students could use.</p>
-    </section>
-
-    <section id="skills">
-      <div class="sec-head">
-        <h2>Skills</h2>
-        <div class="sec-line"></div>
-      </div>
-      <div class="legend">
-        <div class="legend-row">
-          <div class="legend-key">Programming</div>
-          <div class="legend-val">Python, JavaScript, C++, HTML/CSS, Pandas</div>
-        </div>
-        <div class="legend-row">
-          <div class="legend-key">Security &amp; Networking</div>
-          <div class="legend-val">Nmap, Wireshark, Burp Suite, traffic analysis, IDOR testing, HTTP request desync, dynamic fuzzing</div>
-        </div>
-        <div class="legend-row">
-          <div class="legend-key">Environment</div>
-          <div class="legend-val">Git, GitHub, Linux, Kali Linux, VS Code, VirtualBox / VMware</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="sec-head">
-        <h2>Projects</h2>
-        <div class="sec-line"></div>
-      </div>
-
-      <div class="project">
-        <div class="project-top">
-          <span class="project-title">AXIUS — Multi-Sensor Security Scanner</span>
-          <span class="project-tag">SECURITY</span>
-        </div>
-        <p class="project-desc">A production-profile scanner combining network probing, a native Go sniffer, a TypeScript DOM engine, and an IAST runtime agent. Calibrated against the frozen 2,740-case OWASP Benchmark with 100% precision and zero false positives.</p>
-        <a class="project-link" href="https://drive.google.com/drive/folders/1LoBeHkUJdoDi0vp2c7eFHEdOJOvacpeU" target="_blank" rel="noopener">view project →</a>
-      </div>
-
-      <div class="project">
-        <div class="project-top">
-          <span class="project-title">GPA Calculator for UQU Students</span>
-          <span class="project-tag">TOOL</span>
-        </div>
-        <p class="project-desc">Client-side GPA calculator and academic planner tailored to UQU's grading system, with target-GPA prediction and PDF export.</p>
-        <a class="project-link" href="https://github.com/Tariq-almalky/GPA-calculator" target="_blank" rel="noopener">github.com/Tariq-almalky/GPA-calculator →</a>
-      </div>
-
-      <div class="project">
-        <div class="project-top">
-          <span class="project-title">NetLab Q&amp;A — Educational Platform</span>
-          <span class="project-tag">EDUCATION</span>
-        </div>
-        <p class="project-desc">An interactive Q&amp;A platform helping Computer Engineering students master OSI, TCP/IP, and subnetting fundamentals.</p>
-        <a class="project-link" href="https://github.com/Tariq-almalky/NetLab-Q-A" target="_blank" rel="noopener">github.com/Tariq-almalky/NetLab-Q-A →</a>
-      </div>
-
-      <div class="project">
-        <div class="project-top">
-          <span class="project-title">PocketSniffer &amp; Security Tools</span>
-          <span class="project-tag">NETWORKING</span>
-        </div>
-        <p class="project-desc">Custom Python networking utilities, including a lightweight packet sniffer for real-time traffic inspection.</p>
-        <a class="project-link" href="https://github.com/Tariq-almalky/PocketSniffer" target="_blank" rel="noopener">github.com/Tariq-almalky/PocketSniffer →</a>
-      </div>
-
-      <div class="project">
-        <div class="project-top">
-          <span class="project-title">Port-Scanner</span>
-          <span class="project-tag">NETWORKING</span>
-        </div>
-        <p class="project-desc">A TCP port scanning tool built with Python sockets to identify open ports on target hosts.</p>
-        <a class="project-link" href="https://github.com/Tariq-almalky/Port-Scanner-" target="_blank" rel="noopener">github.com/Tariq-almalky/Port-Scanner- →</a>
-      </div>
-
-      <div class="project">
-        <div class="project-top">
-          <span class="project-title">PasswordGenerator</span>
-          <span class="project-tag">UTILITY</span>
-        </div>
-        <p class="project-desc">A Python utility generating strong random passwords with customizable length and character sets.</p>
-        <a class="project-link" href="https://github.com/Tariq-almalky/PasswordGenerator" target="_blank" rel="noopener">github.com/Tariq-almalky/PasswordGenerator →</a>
-      </div>
-
-      <div class="project">
-        <div class="project-top">
-          <span class="project-title">ATM Simulation (Python)</span>
-          <span class="project-tag">UTILITY</span>
-        </div>
-        <p class="project-desc">A command-line ATM simulator implementing deposit, withdrawal, and balance-inquiry logic.</p>
-        <a class="project-link" href="https://github.com/Tariq-almalky/ATM-simulation-python" target="_blank" rel="noopener">github.com/Tariq-almalky/ATM-simulation-python →</a>
-      </div>
-    </section>
-
-    <section id="experience">
-      <div class="sec-head">
-        <h2>Experience</h2>
-        <div class="sec-line"></div>
-      </div>
-      <div class="timeline">
-        <div class="tl-item">
-          <p class="tl-role">Technical Leader</p>
-          <p class="tl-org">Tuwaiq Club (UQU) — Makkah, Saudi Arabia</p>
-          <p class="tl-desc">Introduced modern development tools and workflows to university tech enthusiasts, and led collaborative workshops on practical software development.</p>
-        </div>
-        <div class="tl-item">
-          <p class="tl-role">Technical Workshop Instructor &amp; Content Developer</p>
-          <p class="tl-org">UQU Security Club — Makkah, Saudi Arabia</p>
-          <p class="tl-desc">Designed and presented a standalone workshop on Network Security Fundamentals, guiding peers through interactive Q&amp;A sessions.</p>
-        </div>
-        <div class="tl-item">
-          <p class="tl-role">Member</p>
-          <p class="tl-org">UQU Computer Club — @uqu_cc</p>
-          <p class="tl-desc">Active member of the college's official student computing community.</p>
-        </div>
-        <div class="tl-item">
-          <p class="tl-role">Volunteer Content Creator</p>
-          <p class="tl-org">National Volunteer Platform — Al-Lith, Saudi Arabia</p>
-          <p class="tl-desc">Contributed 388+ hours creating educational content and raising community awareness.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="certifications">
-      <div class="sec-head">
-        <h2>Certifications</h2>
-        <div class="sec-line"></div>
-      </div>
-      <ul class="plain">
-        <li><span class="item-name">Google AI Professional Certificate</span><span class="item-meta">Google Career Certificates · 2026</span></li>
-        <li><span class="item-name">Inspiring and Motivating Individuals</span><span class="item-meta">Univ. of Michigan · 2026</span></li>
-        <li><span class="item-name">Play It Safe: Manage Security Risks</span><span class="item-meta">Google · 2026</span></li>
-        <li><span class="item-name">Python Programming Course</span><span class="item-meta">Tuwaiq Academy</span></li>
-        <li><span class="item-name">EYouth Learning Plan</span><span class="item-meta">IBM SkillsBuild · 2026</span></li>
-      </ul>
-    </section>
-
-    <footer>
-      <p class="footer-name">Tariq Hussain Almalki</p>
-      <p class="footer-role">Computer Engineering &amp; Networks — Umm Al-Qura University</p>
-      <div class="contact-grid">
-        <div>
-          <span class="label">Email</span>
-          <a href="mailto:T.almalky@hotmail.com">T.almalky@hotmail.com</a>
-        </div>
-        <div>
-          <span class="label">Phone</span>
-          <span>+966 50 935 3673</span>
-        </div>
-        <div>
-          <span class="label">GitHub</span>
-          <a href="https://github.com/Tariq-almalky" target="_blank" rel="noopener">Tariq-almalky</a>
-        </div>
-        <div>
-          <span class="label">LinkedIn</span>
-          <a href="https://www.linkedin.com/in/tariq-almalki-b03444391" target="_blank" rel="noopener">tariq-almalki</a>
-        </div>
-        <div>
-          <span class="label">X</span>
-          <a href="https://x.com/isPhiloctetes" target="_blank" rel="noopener">@isPhiloctetes</a>
-        </div>
-        <div>
-          <span class="label">Languages</span>
-          <span>Arabic (Native) · English (Fluent)</span>
-        </div>
-      </div>
-    </footer>
-
+    <span class="name">Tariq Almalki</span>
+    <nav>
+      <a href="https://github.com/Tariq-almalky" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/tariq-almalki" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://x.com/isPhiloctetes" target="_blank" rel="noopener">X</a>
+      <a class="cv" href="mailto:T.almalky@hotmail.com">Get in touch</a>
+    </nav>
   </div>
+</header>
+
+<div class="hero" string="progress" string-enter-vp="top" string-exit-vp="bottom">
+  <div class="hero-inner wrap">
+    <p class="hero-text" string="split" string-split="word"><span class="indent" data-val-pct="0"></span>Tariq Almalki studies computer engineering and networks at Umm Al-Qura University, builds security tooling that holds up against real benchmarks, and is one of the people on campus showing peers what AI-assisted development actually looks like in practice.</p>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="cell"><b>Computer Engineering &amp; Networks</b> student</div>
+    <div class="cell">Makkah, Saudi Arabia</div>
+    <div class="cell">Cybersecurity · AI-assisted development</div>
+    <div class="cell">Open to internships</div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <div class="about-grid">
+      <div>
+        <p>Computer Engineering and Networks student at Umm Al-Qura University in Makkah, with a focus on network security and AI-assisted development. Outside coursework, he builds and ships tools — from a production-profile security scanner to student-facing utilities — and teaches workshops on network security fundamentals for the UQU Security Club.</p>
+        <p>He's also one of the more visible advocates for Claude within UQU's tech circles, using it daily across development, documentation, and workflow design, and sharing what he learns with computer science students on campus.</p>
+      </div>
+      <div class="facts">
+        <div class="row"><span>Location</span><span>Makkah, Saudi Arabia</span></div>
+        <div class="row"><span>Education</span><span>B.S. Computer Engineering &amp; Networks, Umm Al-Qura University</span></div>
+        <div class="row"><span>Expected graduation</span><span>2030–2031</span></div>
+        <div class="row"><span>Languages</span><span>Arabic (native), English (fluent)</span></div>
+        <div class="row"><span>Interests</span><span>Cybersecurity, network security, ethical hacking, AI-assisted development</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ai">
+  <div class="wrap">
+    <h2>Working with Claude &amp; AI</h2>
+    <p class="lede">A dedicated part of how Tariq builds — formalized through coursework, applied daily, and shared with peers.</p>
+    <div class="ai-panel">
+      <div class="item">
+        <h4>Google AI Professional Certificate</h4>
+        <p>8-course series by Google Career Certificates on Coursera, covering AI collaboration, responsible AI use, data analysis, and building AI-powered apps.</p>
+      </div>
+      <div class="item">
+        <h4>Daily, practical use</h4>
+        <p>Builds production-style tools with Claude across development, documentation, and workflow design — not just occasional experiments.</p>
+      </div>
+      <div class="item">
+        <h4>Campus advocate</h4>
+        <p>Introduces peers within UQU's tech circles to AI-assisted development practices and responsible LLM use.</p>
+      </div>
+      <div class="item">
+        <h4>Public presence on X</h4>
+        <p><a href="https://x.com/isPhiloctetes" target="_blank" rel="noopener">@isPhiloctetes</a> — around 600 followers, mostly Computer Science and Computing students at UQU, used to share technical content and campus events.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-panel">
+        <h3>Cybersecurity &amp; networking</h3>
+        <ul>
+          <li>Network traffic analysis</li>
+          <li>Nmap</li>
+          <li>Wireshark</li>
+          <li>Burp Suite</li>
+          <li>IDOR testing</li>
+          <li>HTTP request desynchronization</li>
+          <li>Dynamic security fuzzing</li>
+        </ul>
+      </div>
+      <div class="skill-panel">
+        <h3>AI &amp; prompt engineering</h3>
+        <ul>
+          <li>Claude ecosystem &amp; best practices</li>
+          <li>Large language models</li>
+          <li>AI-assisted development</li>
+          <li>Context optimization</li>
+        </ul>
+      </div>
+      <div class="skill-panel">
+        <h3>Programming &amp; data</h3>
+        <ul>
+          <li>Python</li>
+          <li>JavaScript</li>
+          <li>C++</li>
+          <li>HTML/CSS</li>
+          <li>Pandas</li>
+        </ul>
+      </div>
+      <div class="skill-panel">
+        <h3>Tools &amp; environments</h3>
+        <ul>
+          <li>Git &amp; GitHub</li>
+          <li>Linux</li>
+          <li>Kali Linux</li>
+          <li>VirtualBox / VMware</li>
+          <li>VS Code</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="project">
+  <div class="wrap">
+    <h2>Featured project</h2>
+    <div class="feature">
+      <div class="feature-top">
+        <span class="kicker">security scanner</span>
+        <h3>AXIUS — Multi-Sensor Security Scanner</h3>
+        <p>A production-profile security scanner integrating network probing, a native Go sniffer, a TypeScript DOM engine, and an IAST runtime agent. Complex vulnerabilities are validated with bounded differential runtime proofs inside an authorized Node.js/Express FinTech sandbox.</p>
+      </div>
+      <div class="feature-stats">
+        <div class="stat">
+          <div class="num">100%</div>
+          <div class="label">precision on the OWASP Benchmark</div>
+        </div>
+        <div class="stat">
+          <div class="num">0</div>
+          <div class="label">false positives</div>
+        </div>
+        <div class="stat">
+          <div class="num">2,740</div>
+          <div class="label">cases in the official frozen OWASP Benchmark</div>
+        </div>
+      </div>
+      <a class="feature-link" href="https://drive.google.com/drive/folders/1LoBeHkUJdoDi0vp2c7eFHEdOJOvacpeU" target="_blank" rel="noopener">View project →</a>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>More projects</h2>
+    <div class="plist">
+      <div class="prow">
+        <h4>GPA Calculator for UQU Students</h4>
+        <p>Interactive, client-side GPA calculator and academic planner tailored to UQU grading, with target-GPA predictors and PDF export. Built with AI-assisted development workflows.</p>
+        <a href="https://github.com/Tariq-almalky/GPA-calculator" target="_blank" rel="noopener">github.com/Tariq-almalky/GPA-calculator</a>
+      </div>
+      <div class="prow">
+        <h4>NetLab Q&amp;A</h4>
+        <p>Educational Q&amp;A platform helping Computer Engineering students master OSI, TCP/IP, and subnetting fundamentals.</p>
+        <a href="https://github.com/Tariq-almalky/NetLab-Q-A" target="_blank" rel="noopener">github.com/Tariq-almalky/NetLab-Q-A</a>
+      </div>
+      <div class="prow">
+        <h4>PocketSniffer &amp; Security Tools</h4>
+        <p>Custom Python networking utilities, including a lightweight packet sniffer and a TCP port scanner.</p>
+        <a href="https://github.com/Tariq-almalky/PocketSniffer" target="_blank" rel="noopener">github.com/Tariq-almalky/PocketSniffer</a>
+      </div>
+      <div class="prow">
+        <h4>Port-Scanner</h4>
+        <p>TCP port scanning tool in Python, using socket programming to identify open ports on target hosts.</p>
+        <a href="https://github.com/Tariqalmalky/Port-Scanner-" target="_blank" rel="noopener">github.com/Tariqalmalky/Port-Scanner-</a>
+      </div>
+      <div class="prow">
+        <h4>PasswordGenerator</h4>
+        <p>Python utility that generates strong random passwords with customizable length and character sets.</p>
+        <a href="https://github.com/Tariq-almalky/PasswordGenerator" target="_blank" rel="noopener">github.com/Tariq-almalky/PasswordGenerator</a>
+      </div>
+      <div class="prow">
+        <h4>ATM Simulation</h4>
+        <p>Command-line ATM simulator in Python, implementing deposit, withdrawal, and balance-inquiry logic.</p>
+        <a href="https://github.com/Tariq-almalky/ATM-simulation-python" target="_blank" rel="noopener">github.com/Tariq-almalky/ATM-simulation-python</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="leadership">
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <h2>Leadership</h2>
+        <div class="role">
+          <h4>Technical Workshop Instructor &amp; Content Developer</h4>
+          <div class="org">UQU Security Club — Makkah, Saudi Arabia</div>
+          <ul>
+            <li>Designed and presented a standalone, web-based presentation deck teaching Network Security Fundamentals.</li>
+            <li>Guided peers through interactive Q&amp;A sessions, translating complex technical concepts into accessible knowledge.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h2>Certifications</h2>
+        <ul class="cert-list">
+          <li class="cert-row"><span><span>Google AI Professional Certificate</span><br><span class="org">Google Career Certificates, Coursera — 8-course series</span></span><span class="yr">2026</span></li>
+          <li class="cert-row"><span><span>Play It Safe: Manage Security Risks</span><br><span class="org">Google, Coursera</span></span><span class="yr">2026</span></li>
+          <li class="cert-row"><span><span>Inspiring and Motivating Individuals</span><br><span class="org">University of Michigan, Coursera</span></span><span class="yr">2026</span></li>
+          <li class="cert-row"><span><span>Fundamentals of Community Work &amp; Development Initiative Design</span><br><span class="org">KFUPM</span></span><span class="yr">2026</span></li>
+          <li class="cert-row"><span><span>EYouth Learning Plan</span><br><span class="org">IBM SkillsBuild</span></span><span class="yr">2026</span></li>
+          <li class="cert-row"><span><span>Python Programming Course</span><br><span class="org">Tuwaiq Academy</span></span><span class="yr">—</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="volunteer">
+  <div class="wrap">
+    <h2>Volunteer</h2>
+    <div class="vol">
+      <div class="num">388+</div>
+      <p><b>Volunteer Content Creator, National Volunteer Platform.</b> Contributed 388+ hours to digital content creation and community education, raising awareness across the Al-Lith region, Saudi Arabia.</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer" string="progress" string-exit-vp="bottom">
+  <div class="footer-inner wrap">
+    <div class="footer-top">
+      <h2>Let's talk</h2>
+      <p>Open to internships and junior roles in security engineering and AI-assisted development. Based in Makkah, happy to work remotely too.</p>
+      <div class="footer-links">
+        <a href="mailto:T.almalky@hotmail.com">T.almalky@hotmail.com</a>
+        <a href="tel:+966509353673">+966 50 935 3673</a>
+        <a href="https://github.com/Tariq-almalky" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/tariq-almalki" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/isPhiloctetes" target="_blank" rel="noopener">X</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tariq Almalki</span>
+      <span>Makkah, Saudi Arabia</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const stringTune = StringTune.StringTune.getInstance();
+  window.StringTuneContext = stringTune;
+  stringTune.use(StringTune.StringSplit);
+  stringTune.use(StringTune.StringProgress);
+  stringTune.start(0);
+</script>
 
 </body>
 </html>
