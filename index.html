@@ -25,9 +25,9 @@
   --line: #212B38;
   --ink: #E8ECF1;
   --muted: #8D99A8;
-  --accent: #FFB454;
-  --accent-ink: #241705;
-  --accent-2: #5AC8FA;
+  --accent: #5FCFC0;
+  --accent-ink: #06201C;
+  --accent-2: #7FB4E8;
 
   --sans: 'IBM Plex Sans', Arial, sans-serif;
   --display: 'Space Grotesk', Arial, sans-serif;
@@ -205,87 +205,66 @@ h2{ font-size: var(--fs-h2); margin-bottom: 2.25rem; max-width: 20ch; }
 }
 .about-grid p{ max-width: 56ch; }
 .about-grid p + p{ margin-top: 1rem; }
-.facts{ border: 1px solid var(--line); }
 .facts .row{
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.9rem 1.1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
 }
-.facts .row + .row{ border-top: 1px solid var(--line); }
+.facts .row:last-child{ border-bottom: none; }
 .facts .row span:first-child{ color: var(--muted); font-size: var(--fs-small); }
 .facts .row span:last-child{ text-align: right; font-size: var(--fs-small); }
 
 /* AI panel */
 .ai-panel{
-  border: 1px solid var(--line);
-  background: var(--bg-panel);
-  padding: 1.75rem;
   display: grid;
-  gap: 1.1rem;
+  gap: 2rem 2.5rem;
 }
 @media (min-width: 700px){
   .ai-panel{ grid-template-columns: repeat(2, 1fr); }
 }
-.ai-panel .item{ border-left: 2px solid var(--accent); padding-left: 1rem; }
+.ai-panel .item{ border-left: 2px solid var(--accent); padding-left: 1.1rem; }
 .ai-panel .item p{ color: var(--muted); font-size: var(--fs-small); margin-top: 0.35rem; }
 
 /* skills */
 .skills-grid{
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  gap: 2.5rem;
 }
 @media (min-width: 700px){
   .skills-grid{ grid-template-columns: 1.3fr 1fr; }
 }
-.skill-panel{ background: var(--bg-panel); padding: 1.5rem 1.6rem; }
 .skill-panel h3{ font-size: var(--fs-h3); margin-bottom: 0.85rem; }
-.skill-panel ul{ list-style:none; display:flex; flex-wrap:wrap; gap: 0.5rem; }
+.skill-panel ul{ list-style:none; display:flex; flex-wrap:wrap; gap: 0.5rem 0; }
 .skill-panel li{
   font-size: var(--fs-small);
-  color: var(--ink);
-  border: 1px solid var(--line);
-  padding: 0.3rem 0.65rem;
+  color: var(--muted);
 }
+.skill-panel li:not(:last-child)::after{ content: ' \00b7 '; color: var(--line); }
 
 /* featured project */
-.feature{
-  border: 1px solid var(--line);
-  background: var(--bg-panel);
-}
-.feature-top{ padding: 2rem 2rem 0 2rem; }
-@media (min-width: 700px){ .feature-top{ padding: 2.75rem 2.75rem 0 2.75rem; } }
+.feature-top{ padding: 0; }
 .feature-top .kicker{ color: var(--accent); font-family: var(--mono); font-size: var(--fs-small); }
 .feature-top h3{ font-family: var(--display); font-size: var(--fs-h2); margin: 0.6rem 0 1rem; max-width: 22ch; }
 .feature-top p{ color: var(--muted); max-width: 62ch; }
 .feature-stats{
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  margin-top: 2rem;
-  border-top: 1px solid var(--line);
+  gap: 1.75rem;
+  margin-top: 2.5rem;
 }
-@media (min-width: 700px){ .feature-stats{ grid-template-columns: repeat(3, 1fr); } }
-.feature-stats .stat{
-  padding: 1.6rem 2rem;
-  border-top: 1px solid var(--line);
-}
-@media (min-width: 700px){
-  .feature-stats .stat{ border-top: none; border-left: 1px solid var(--line); }
-  .feature-stats .stat:first-child{ border-left: none; }
-}
+@media (min-width: 700px){ .feature-stats{ grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
 .feature-stats .num{ font-family: var(--mono); font-size: var(--fs-stat); color: var(--accent); line-height: 1; }
 .feature-stats .label{ color: var(--muted); font-size: var(--fs-small); margin-top: 0.5rem; }
 .feature-link{
   display: inline-block;
-  margin: 1.75rem 2rem 2rem;
+  margin-top: 2.25rem;
   font-size: var(--fs-small);
   border-bottom: 1px solid var(--accent);
   color: var(--accent);
 }
-@media (min-width: 700px){ .feature-link{ margin: 1.75rem 2.75rem 2.75rem; } }
 .feature-link:hover{ opacity: 0.8; }
 
 /* project list */
@@ -393,7 +372,7 @@ h2{ font-size: var(--fs-h2); margin-bottom: 2.25rem; max-width: 20ch; }
 }
 .footer-links a{
   font-size: var(--fs-small);
-  border-bottom: 1px solid rgba(36,23,5,0.4);
+  border-bottom: 1px solid rgba(6,32,28,0.4);
   padding-bottom: 0.15rem;
 }
 .footer-links a:hover{ border-bottom-color: var(--accent-ink); }
@@ -404,7 +383,7 @@ h2{ font-size: var(--fs-h2); margin-bottom: 2.25rem; max-width: 20ch; }
   gap: 0.75rem;
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(36,23,5,0.25);
+  border-top: 1px solid rgba(6,32,28,0.25);
   font-size: var(--fs-small);
   opacity: 0.75;
 }
@@ -474,7 +453,7 @@ h2{ font-size: var(--fs-h2); margin-bottom: 2.25rem; max-width: 20ch; }
       </div>
       <div class="item">
         <h4>Campus advocate</h4>
-        <p>Introduces peers within UQU's tech circle to AI-assisted development practices and responsible LLM use.</p>
+        <p>Introduces peers within UQU's tech circles to AI-assisted development practices and responsible LLM use.</p>
       </div>
       <div class="item">
         <h4>Public presence on X</h4>
